@@ -5,6 +5,11 @@ from odoo.exceptions import ValidationError
 class OpStudent(models.Model):
     _inherit = "op.student"
 
+    country_id = fields.Many2one(
+        'res.country',
+        default=lambda self: self.env['res.country'].search([('code', '=', 'IN')], limit=1)
+    )
+
     # India-specific fields
     aadhar_number = fields.Char(
         'Aadhar Number',
